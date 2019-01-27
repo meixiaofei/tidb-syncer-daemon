@@ -1,0 +1,15 @@
+[Unit]
+Description=syncer daemon service
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+LimitNOFILE=1000000
+User=root
+ExecStart=/etc/syncer/run_syncer.sh
+Restart=always
+RestartSec=15s
+StartLimitInterval=300
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

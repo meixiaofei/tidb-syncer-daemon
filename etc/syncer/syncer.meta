@@ -1,0 +1,4 @@
+binlog-name = "mysql-bin.000004"
+binlog-pos = 433885952
+# if not use gtid, can set this param empty
+binlog-gtid = ""

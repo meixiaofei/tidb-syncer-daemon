@@ -1,0 +1,61 @@
+log-level = "info"
+
+server-id = 101
+
+# The file path for meta:
+meta = "/etc/syncer/syncer.meta"
+worker-count = 16
+batch = 10
+
+# The testing address for pprof. It can also be used by Prometheus to pull the syncer metrics.
+status-addr = ":10081"
+
+skip-sqls = ["ALTER USER", "CREATE USER"]
+
+# Support whitelist filter. You can specify the database and table to be synchronized. For example:
+# Synchronize all the tables of db1 and db2:
+replicate-do-db = ["db1","db2"]
+
+# Synchronize db1.table1.
+[[replicate-do-table]]
+db-name ="db1"
+tbl-name = "table1"
+
+# Synchronize db3.table2.
+[[replicate-do-table]]
+db-name ="db3"
+tbl-name = "table2"
+
+# Support regular expressions. Start with '~'  to use regular expressions.
+# To synchronize all the databases that start with `test`:
+replicate-do-db = ["~^test.*"]
+
+# The sharding synchronising rules support wildcharacter.
+# 1. The asterisk character (*, also called "star") matches zero or more characters,
+#    for example, "doc*" matches "doc" and "document" but not "dodo";
+#    asterisk character must be in the end of the wildcard word,
+#    and there is only one asterisk in one wildcard word.
+# 2. The question mark ? matches exactly one character.
+#[[route-rules]]
+#pattern-schema = "route_*"
+#pattern-table = "abc_*"
+#target-schema = "route"
+#target-table = "abc"
+
+#[[route-rules]]
+#pattern-schema = "route_*"
+#pattern-table = "xyz_*"
+#target-schema = "route"
+#target-table = "xyz"
+
+[from]
+host = "127.0.0.1"
+user = "root"
+password = ""
+port = 3306
+
+[to]
+host = "127.0.0.1"
+user = "root"
+password = ""
+port = 4000
